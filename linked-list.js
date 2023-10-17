@@ -58,6 +58,38 @@ class LinkedList {
         this.length--;
     }
 
+    contains(value) {
+        let current = this.head;
+        while(current.next != null){
+            if(current.data == value) {return true}
+            current = current.next
+        }
+        return false;
+    }
+
+    find(value) {
+        let current = this.head;
+        for(let i = 0; i < this.length; i++) {
+            if(current.data == value){
+                return i;
+            }
+            current = current.next;
+        }
+        return 'not found';
+    }
+
+    toString() {
+        let output = ''
+        let current = this.head;
+        while(current.next != null){
+            output += `${current.data} -> `;
+            current = current.next;
+        } 
+        if(current.next == null) {
+            output += `${current.data}`
+        }
+        return output;
+    }
 }
 
 
