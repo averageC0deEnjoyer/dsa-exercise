@@ -51,10 +51,9 @@ class LinkedList {
 
     pop() {
         let current = this.head;
-        for(let i = 0; i < this.length - 1; i++) {
+        for(let i = 0; i < this.length - 2; i++) {
             current = current.next;
         }
-        delete current.data;
         current.next = null;
         this.length--;
     }
