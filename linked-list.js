@@ -90,6 +90,30 @@ class LinkedList {
         }
         return output;
     }
+
+    insertAt(value, index) {
+        let current = this.head;
+        if(index == 1){
+            current.next = new ListNode(value, current.next);
+            this.length++;
+        } else if (index > 1) {
+            for(let i = 0 ; i < index - 1; i++){
+                current = current.next;
+            }
+            current.next = new ListNode(value, current.next);
+            this.length++;
+        }
+        
+    }
+
+    removeAt(index){
+        let current = this.head;
+        let prev = this.head;
+        for(let i = 0; i < index - 1; i++){
+            current = current.next;
+        }
+        current = new ListNode('madafaka', current.next);
+    }
 }
 
 
