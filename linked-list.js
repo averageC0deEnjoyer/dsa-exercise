@@ -108,11 +108,11 @@ class LinkedList {
 
     removeAt(index){
         let current = this.head;
-        let prev = this.head;
         for(let i = 0; i < index - 1; i++){
             current = current.next;
         }
-        current = new ListNode('madafaka', current.next);
+        current.next = current.next.next;
+        this.length--;
     }
 }
 
