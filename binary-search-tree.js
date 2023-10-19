@@ -27,41 +27,6 @@ class BinaryTree{
         return node;
     }
 
-    // insert(value){
-    //     let current = this.root
-    //     let prev = null;
-    //     // console.log(current) using conslog to check before after
-    //     while(current.left != null && current.right != null){
-    //         if(value < current.data){
-    //             prev = current;
-    //             current = current.left;
-    //         } else if (value > current.data) {
-    //             prev = current;
-    //             current = current.right;
-    //         }
-            
-    //     }
-
-    //     if(value > current.data && current.right == null) {
-    //         current.right = new Node(value);
-    //     } else if (value < current.data && current.left == null){
-    //         current.left = new Node(value);
-    //     } else if (value < current.data && current.left != null){
-    //         current = current.left;
-    //         if(value > current.data){
-    //             current.right = new Node (value);
-    //         } else if (value < current.data) {
-    //             current.left = new Node (value);
-    //         }
-    //     } else if (value > current.data && current.right != null){
-    //         current = current.right;
-    //         if(value > current.data){
-    //             current.right = new Node (value);
-    //         } else if (value < current.data) {
-    //             current.left = new Node (value);
-    //         }
-    //     }
-// }
 
     insert(value){
         let current = this.root
@@ -82,7 +47,7 @@ class BinaryTree{
                 current.right = new Node(value);
                 break;
             }
-        } console.log(current)
+        } 
     }
 
 
@@ -106,24 +71,30 @@ class BinaryTree{
                 prev.right = null
             }
         } else if (current.left != null && current.right != null){
-            if(current.right != null) { // delete node if have right child (then traverse to the left of that right child)
-                if(current.right.left != null) {
-                    let toBeChanged = current;
-                    console.log(toBeChanged);
-                    let prev;
-                    current = current.right;
-                    while(current.left != null){
-                        prev = current;
-                        current = current.left;
-                    }
-                    // console.log(prev);
-                    // console.log(current);
-                    toBeChanged.data = current.data;
-                    prev.left = null;
-                } else {
-
+            // delete node if have right child (then traverse to the left of that right child)
+            if(current.right.left != null) {
+                let toBeChanged = current;
+                console.log(toBeChanged);
+                let prev;
+                current = current.right;
+                while(current.left != null){
+                    prev = current;
+                    current = current.left;
+                }
+                // console.log(prev);
+                // console.log(current);
+                toBeChanged.data = current.data;
+                prev.left = null;
+            } else if (current.right.left == null){
+                if(prev.right.data == value) {
+                    prev.right.data = current.right.data;
+                    current.right = null;
+                } else if (prev.left.data == value) {
+                    prev.left.data = current.right.data;
+                    current.right = null;
                 }
             }
+            
         } else if (current.left != null && current.right == null) {
             if(prev.left.data == value){
                 prev.left = current.left;
@@ -169,9 +140,19 @@ let binaryTreeTest = new BinaryTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345,
 prettyPrint(binaryTreeTest.root)
 
 binaryTreeTest.insert(24)
-binaryTreeTest.insert(25)
-binaryTreeTest.insert(26)
-binaryTreeTest.insert(27)
-binaryTreeTest.insert(28)
+// binaryTreeTest.insert(335)
+// binaryTreeTest.insert(334)
+// binaryTreeTest.insert(333)
+// binaryTreeTest.insert(332)
+// binaryTreeTest.insert(331)
+// binaryTreeTest.insert(330)
+// binaryTreeTest.insert(323)
+// binaryTreeTest.insert(322)
+// binaryTreeTest.insert(321)
+// binaryTreeTest.insert(320)
+// binaryTreeTest.insert(336)
+// binaryTreeTest.insert(337)
+// binaryTreeTest.insert(338)
+binaryTreeTest.delete(23)
 
 prettyPrint(binaryTreeTest.root)
