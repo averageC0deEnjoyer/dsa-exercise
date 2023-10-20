@@ -33,6 +33,7 @@ class BinaryTree{
         let prev = null;
         // console.log(current) using conslog to check before after
         while(current.left != null || current.right != null){
+            if(value == current) return;
             if(value < current.data){
                 prev = current;
                 current = current.left;
@@ -248,6 +249,7 @@ binaryTreeTest.insert(24)
 // binaryTreeTest.insert(336)
 // binaryTreeTest.insert(337)
 // binaryTreeTest.insert(338)
+binaryTreeTest.insert(324)
 binaryTreeTest.insert(325)
 binaryTreeTest.insert(6346)
 binaryTreeTest.insert(25)
