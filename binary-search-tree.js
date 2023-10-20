@@ -29,7 +29,7 @@ class BinaryTree{
 
 
     insert(value){
-        let current = this.root
+        let current = this.root;
         let prev = null;
         // console.log(current) using conslog to check before after
         while(current.left != null || current.right != null){
@@ -74,7 +74,6 @@ class BinaryTree{
             // delete node if have right child (then traverse to the left of that right child)
             if(current.right.left != null) {
                 let toBeChanged = current;
-                console.log(toBeChanged);
                 let prev;
                 current = current.right;
                 while(current.left != null){
@@ -108,7 +107,111 @@ class BinaryTree{
                 prev.right = current.right;
             }
         }
-}
+    }
+
+    find(value){
+        let current = this.root;
+        let prev;
+        while(current != null && current.data != value){
+            if(value < current.data){
+                prev = current;
+                current = current.left;
+            } else {
+                prev = current;
+                current = current.right;
+            }
+        }
+        return current;
+    }
+
+    leverOrderTraversal(node = this.root){
+        let arrayQueue = [];
+        let arrayResult = [];
+        arrayQueue.push(node)
+        while(arrayQueue.length > 0){
+            arrayResult.push(arrayQueue[0].data);
+            if(arrayQueue[0].left != null){
+                arrayQueue.push(arrayQueue[0].left)
+            }
+            if(arrayQueue[0].right != null){
+                arrayQueue.push(arrayQueue[0].right)
+            }
+            arrayQueue.shift();
+        }
+        return arrayResult;
+    }
+
+    preOrder(node = this.root, arrayResult = []){
+        if(node == null){return};
+
+        arrayResult.push(node.data);
+        this.preOrder(node.left, arrayResult);
+        this.preOrder(node.right, arrayResult);
+
+        return arrayResult;
+    }
+
+    inOrder(node = this.root, arrayResult = []){
+        if(node == null){return};
+
+        this.inOrder(node.left, arrayResult);
+        arrayResult.push(node.data);
+        this.inOrder(node.right, arrayResult);
+
+        return arrayResult;
+    }
+
+    postOrder(node = this.root, arrayResult = []){
+        if(node == null){return};
+
+        this.postOrder(node.left, arrayResult);
+        this.postOrder(node.right, arrayResult);
+        arrayResult.push(node.data)
+
+        return arrayResult;
+    }
+
+
+    height(node = this.root){
+    
+        if(node == null){return -1};
+
+        let lHeight = this.height(node.left);
+        let rHeight = this.height(node.right);
+
+        return Math.max(lHeight,rHeight)+1;
+    }
+
+
+    depth(node, current = this.root, depth = 0){
+        if(node.data == current.data) {return 0};
+
+        if(node.data < current.data){
+            return 1 + this.depth(node, current.left);
+        } else if(node.data > current.data) {
+            return 1 + this.depth(node, current.right);
+        } else {
+            return -1
+        }
+    }
+
+    isBalanced(node = this.root){
+        let result;
+        let lHeight = this.height(node.left);
+        let rHeight = this.height(node.right);
+        Math.abs(lHeight-rHeight) > 1 ? result = false : result = true 
+        return result;
+    }
+
+    rebalanced(value){
+        if(value == false){
+            let current = this.root
+            let newArray = this.leverOrderTraversal(current);
+            let a = [...new Set(newArray)].sort(function(a,b){return a-b});  
+            this.root = this.sortedArrToBST(a)
+        }
+    }
+
 }
 
 
@@ -128,14 +231,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 
 let binaryTreeTest = new BinaryTree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-// let binaryTreeTest = new BinaryTree([1, 7, 4, 23, 8,4, 3, 5, 7, 67, 6345, 324])
-
-
-// binaryTreeTest.insert(323)
-// binaryTreeTest.delete(67)
-// binaryTreeTest.delete(23)
-// binaryTreeTest.delete(5)
-
 
 prettyPrint(binaryTreeTest.root)
 
@@ -153,6 +248,17 @@ binaryTreeTest.insert(24)
 // binaryTreeTest.insert(336)
 // binaryTreeTest.insert(337)
 // binaryTreeTest.insert(338)
-binaryTreeTest.delete(23)
+binaryTreeTest.insert(325)
+binaryTreeTest.insert(6346)
+binaryTreeTest.insert(25)
+binaryTreeTest.insert(326)
+
+console.log(binaryTreeTest.sortedArr)
+
+prettyPrint(binaryTreeTest.root)
+
+console.log(binaryTreeTest.isBalanced())
+
+console.log(binaryTreeTest.rebalanced(binaryTreeTest.isBalanced()))
 
 prettyPrint(binaryTreeTest.root)
