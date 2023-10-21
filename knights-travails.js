@@ -1,11 +1,13 @@
 
 class Node{
-    constructor(coords, step = 0){
+    constructor(coords, step = 0, parent){
         [this.currentCoordX, this.currentCoordY] = [...coords];
-        this.child = [];
+        this.parent = parent;
         this.step = step;
+
     }
 }
+
 
 function knightMoves(startCoordinates,endCoordinates){
     let [endCoordinateX, endCoordinateY] = [...endCoordinates];
@@ -24,20 +26,21 @@ function knightMoves(startCoordinates,endCoordinates){
             grid[i].push(0);
         }
     }
-    
     //initialize queue (line 28 29)
     queueArray.push(new Node(startCoordinates, 0));
     visitedCoordinatesArray.push(startCoordinates); // to check if a coordinates already visited or not.
     while(queueArray.length > 0){
         let visitedNode = queueArray.shift();
-    
-        if(visitedNode.currentCoordX == endCoordinateX && visitedNode.currentCoordY == endCoordinateY){return visitedNode.step};     
+
+
+        if(visitedNode.currentCoordX == endCoordinateX && visitedNode.currentCoordY == endCoordinateY)
+        {return [visitedNode.step, visitedNode.parent]}     
         
         for(dir of possibleKnightMoves){
             let nextMoveCoords = [visitedNode.currentCoordX+dir[0],visitedNode.currentCoordY+dir[1]];
             if(nextMoveCoords[0] < -2 || nextMoveCoords[1] < -2 || nextMoveCoords[0] > m || nextMoveCoords[1] > n){continue}  
             if(visitedCoordinatesArray.some(arr=> arr.toString() === nextMoveCoords.toString())){continue}; //if visitedCoordinatesArray, continue loop
-            queueArray.push(new Node(nextMoveCoords, visitedNode.step + 1));
+            queueArray.push(new Node(nextMoveCoords, visitedNode.step + 1, visitedNode));
             }
         }   
     }
@@ -47,4 +50,5 @@ function knightMoves(startCoordinates,endCoordinates){
 //after that, if nextCoords not visited and nextCoords not out of bound, push newNode with nextCoords argument to queue, step+1
 //
 
-console.log(knightMoves([0,0],[7,7]))
+
+console.log(knightMoves([0,0],[3,3]))

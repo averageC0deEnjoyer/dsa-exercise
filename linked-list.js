@@ -1,8 +1,17 @@
+class ListNode {
+    constructor(data, next = null){
+        this.data = data;
+        this.next = next;
+    } 
+}
+
+
 class LinkedList {
     constructor(head = null){
         this.length = 0;
         this.head = head;
     }
+    
 
     append(value){
         let current = this.head;
@@ -117,12 +126,6 @@ class LinkedList {
 }
 
 
-class ListNode {
-    constructor(data, next = null){
-        this.data = data;
-        this.next = next;
-    } 
-}
 
 
 let ll = new LinkedList()
